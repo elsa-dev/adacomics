@@ -1,0 +1,6 @@
+//boton paginacion
+
+.boton-secundario {
+    @extend %boton;
+    padding: 0 15px;
+}

@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    @extend  %centrar-flex;
+    flex-direction: column;
+}
+
+.contenedor_busqueda {
+    font-family: $font-cuerpo ;
+    border: 4px solid rgb(137, 17, 137);
+    width: 90%;
+}
+
+.contenedor_busqueda-titulo{
+    border: 3px solid blue;
+}
+
+.contenedor_busqueda {
+    border: 3px solid rgb(240, 232, 13);
+   
+
+}
+
+.contenedor_busqueda-cuerpo {
+    border: 3px solid rgb(48, 150, 89);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    
+    
+
+}
+
+
+#filtro_busqueda{
+    border: 3px solid rgb(116, 111, 204);
+
+}
+.selects{
+    border: 3px solid rgb(13, 20, 17);
+
+
+}
+.boton-principal{
+    border: 3px solid rgb(102, 35, 156);
+
+}
+
+.contenedor-tarjetas {
+    width: 90%;
+    height: 600px;
+    border: 3px solid rgb(238, 99, 13);
+}
+
+.contenedor_botones{
+    border: 3px solid rgb(159, 0, 26);
+}

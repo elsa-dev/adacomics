@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+header .titulo {
+  background-color: #020202;
+  height: 50px;
+}
+header .titulo h1 {
+  font-family: "Bangers", cursive;
+  color: #ffffff;
+  background-color: #ed1d23;
+  font-size: 45px;
+  width: 220px;
+}
+header .imagen-cabecera {
+  width: 100%;
+  height: 400px;
+  background-image: url(https://frontend-proyecto-comics.adaitw.org/hero.jpg);
+  background-position: center;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  flex-direction: column;
+}
+
+.contenedor_busqueda {
+  font-family: "Roboto", sans-serif;
+  border: 4px solid #891189;
+  width: 90%;
+}
+
+.contenedor_busqueda-titulo {
+  border: 3px solid blue;
+}
+
+.contenedor_busqueda {
+  border: 3px solid #f0e80d;
+}
+
+.contenedor_busqueda-cuerpo {
+  border: 3px solid #309659;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#filtro_busqueda {
+  border: 3px solid #746fcc;
+}
+
+.selects {
+  border: 3px solid #0d1411;
+}
+
+.boton-principal {
+  border: 3px solid #66239c;
+}
+
+.contenedor-tarjetas {
+  width: 90%;
+  height: 600px;
+  border: 3px solid #ee630d;
+}
+
+.contenedor_botones {
+  border: 3px solid #9f001a;
+}
+
+footer {
+  background-color: #020202;
+  height: 100px;
+}
+footer h2 {
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-size: 16px;
+  width: 300px;
+}
+
+header .titulo, header .titulo h1, main, footer, footer h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boton-secundario, .boton-principal {
+  border: 0;
+  height: 40px;
+  background-color: #151515;
+  color: #ffffff;
+  cursor: pointer;
+}
+.boton-secundario:hover, .boton-principal:hover {
+  background-color: #ed1d23;
+}
+
+.boton-principal {
+  padding: 0 10px;
+}
+
+.boton-secundario {
+  padding: 0 15px;
+}
+
+/*# sourceMappingURL=style.css.map */

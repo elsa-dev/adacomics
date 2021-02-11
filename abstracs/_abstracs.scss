@@ -1,0 +1,33 @@
+//  aca van los mixins funciones
+
+//extends centrado de elementos espaciado y margenes de distintos elementos
+
+%centrar-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+%altura-gral {
+    height: 50px;
+}
+
+
+
+
+%boton {
+  border: 0;
+  height: 40px;
+  background-color: $color-background-botones-primario ;
+    color: $color-principal-tipografia-fondo-oscuro ;
+  cursor: pointer;
+
+  &:hover {  
+    background-color: $color-background-botones-hover;
+  }
+  
+}
+
+
+//mixins   //CODIGO COMPARTIDO ENTRE DISTINTAS VERSIONES DE UN SOLO COMPONENTE
+////dejariamos mixin para botones que cambian de color. botones, inputs, tarjetas.

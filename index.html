@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous">
+  <title>Buscador Ada Comics!</title>
+</head>
+
+<body>
+  <header>
+    <div class="titulo">
+      <h1>ADA COMICS</h1>
+    </div>
+
+    <!-- CABECERA -->
+
+    <div class="imagen-cabecera">
+
+    </div>
+  </header>
+
+  <!-- MAIN -->
+
+
+  <main>
+    <div class="contenedor_busqueda">
+      <h2 class="contenedor_busqueda-titulo">Búsqueda</h2>
+      <div class="contenedor_busqueda-cuerpo">
+        <p>
+          <input type="text" id="filtro_busqueda" name="filtro" placeholder="Ingresá tu búsqueda">
+
+
+        <div class="selects">
+
+          <label for="tipo">TIPO
+            <select name="" id="tipo">
+              <option value="comics">COMICS</option>
+              <option value="personajes">PERSONAJES</option>
+            </select>
+          </label>
+
+          <label for="orden">ORDEN
+            <select name="" id="orden">
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+              <option value="mas-nuevos">Más nuevos</option>
+              <option value="mas-viejos">Mas viejos</option>
+            </select>
+          </label>
+
+        </div>
+
+        <button class="boton-principal">
+          BUSCAR
+        </button>
+
+        </p>
+
+      </div>
+      <div class="contenedor_busqueda-resultados">
+        <div class="contenedor_busqueda-titulo">
+          Resultados
+        </div>
+        <div class="contenedor_busqueda-contenido">
+          <span></span> resultados
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="contenedor-tarjetas">
+
+
+    </div>
+
+    <div class="contenedor_botones">
+      <!-- //iz -->
+      <button class="boton-secundario">
+        <i class="fas fa-angle-double-left"></i>
+      </button>
+
+      <button class="boton-secundario">
+        <i class="fas fa-angle-left"></i>
+      </button>
+
+      <!-- //der -->
+      <button class="boton-secundario">
+        <i class="fas fa-angle-right"></i>
+      </button>
+
+      <button class="boton-secundario">
+        <i class="fas fa-angle-double-right"></i>
+      </button>
+    </div>
+
+  </main>
+  <footer>
+    <h2>Hecho 🏃‍♀️ 🏃‍♀️ 🏃‍♀️ 🏃‍♀️ 🏃‍♀️ 🏃‍♀️ por Elsa</h2>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+
+</html>
