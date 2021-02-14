@@ -65,7 +65,7 @@ main {
 
 section {
   width: 90%;
-  height: 600px;
+  height: 100%;
   border: 3px solid #ee630d;
   display: flex;
   flex-wrap: wrap;
