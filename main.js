@@ -18,7 +18,7 @@ botonPrev.onclick = () => {
     buscarComics("comics", paginaActual, "title");
 }
 
-const buscarComics = (url, paginaActual, title) => {
+const buscarComics = (url, paginaActual, nombre) => {
   fetch(
     `${urlBase + url}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}`
   )
@@ -38,7 +38,7 @@ const buscarComics = (url, paginaActual, title) => {
             <img  class="imagen" src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="">
           </div> 
           <h3 class="contenedor__tarjetas-titulo">
-          ${comic.title}
+          ${comic[nombre]}
           </h3> 
       </article> 
     `;
@@ -47,3 +47,36 @@ const buscarComics = (url, paginaActual, title) => {
 };
 
 buscarComics("comics", paginaActual, "title");
+
+//busquedas por seleccion
+
+const form = document.forms[0];
+
+form.onsubmit = (e) => {
+    e.preventDefault()
+}
+
+const filtro = document.querySelector("#filtro_busqueda");
+const tipo = document.querySelector("#tipo");
+const orden = document.querySelector("#orden");
+const botonBuscar = document.querySelector(".boton-principal");
+
+tipo.onchange = () => {
+    validarSeleccion();
+}
+
+const validarSeleccion = () => {
+    if(tipo.value === "comics") {
+        buscarComics("comics", paginaActual, "title"); 
+    }
+    else if(tipo.value === "personajes") {
+        buscarComics("characters", paginaActual, "name"); 
+    }
+
+
+
+
+}
+
+
+// console.log(botonBuscar)
