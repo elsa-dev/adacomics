@@ -1,31 +1,49 @@
+const botonProx = document.querySelector("#prox");
+const botonPrev = document.querySelector("#prev");
 
-fetch("http://gateway.marvel.com/v1/public/comics?ts=1&apikey=a5c341737de7aeb8ed26d028706b8313")
-.then( ( res ) => {
-    return res.json()
-})
-.then((info) => {
-    console.log(info)
+const urlBase = "http://gateway.marvel.com/v1/public/";
+const apiKey = "a5c341737de7aeb8ed26d028706b8313";
+let paginaActual = 0;
+let comicsPorPagina = 20;
 
-    console.log(info.data.results[4].thumbnail.path)
-    console.log(info.data.results[4].title)
+botonProx.onclick = () => {
+    paginaActual++;
+    console.log("paginaActual", paginaActual)
+    buscarComics("comics", paginaActual, "title");
+}
 
-    const seccion = document.querySelector('section');
+botonPrev.onclick = () => {
+    paginaActual--;
+    console.log("paginaActual", paginaActual)
+    buscarComics("comics", paginaActual, "title");
+}
 
-    seccion.innerHTML = " ";
-    info.data.results.map( (comic) => {
+const buscarComics = (url, paginaActual, title) => {
+  fetch(
+    `${urlBase + url}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}`
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((info) => {
+      console.log(info);
+
+      const seccion = document.querySelector("section");
+
+      seccion.innerHTML = " ";
+      info.data.results.map((comic) => {
         seccion.innerHTML += `
-    <article >
+    <article>
          <div class="contenedor__tarjetas-imagen">
             <img  class="imagen" src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="">
-          </div>
+          </div> 
           <h3 class="contenedor__tarjetas-titulo">
           ${comic.title}
           </h3> 
       </article> 
-    ` 
-    })
-   
+    `;
+      });
+    });
+};
 
-}
-
-)
+buscarComics("comics", paginaActual, "title");
