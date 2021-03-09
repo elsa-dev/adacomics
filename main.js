@@ -6,11 +6,10 @@ const apiKey = "a5c341737de7aeb8ed26d028706b8313";
 let paginaActual = 0;
 let comicsPorPagina = 20;
 
-
-
 const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
   fetch(
-    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}&orderBy=${orden}`
+    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
+    }&orderBy=${orden}`
   )
     .then((res) => {
       return res.json();
@@ -38,14 +37,13 @@ const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
 
 buscarInfo("comics", paginaActual, "title");
 
-
 const filtro = document.querySelector("#filtro_busqueda");
-console.log(filtro.value)
+console.log(filtro.value);
 
-const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, filtro ) => {
-  
+const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden,  filtro) => {
   fetch(
-    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}&orderBy=title&titleStartsWith=${filtro.value}`
+    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
+    }&orderBy=${orden}&titleStartsWith=${filtro}`
   )
     .then((res) => {
       return res.json();
@@ -71,9 +69,10 @@ const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, filtro ) => {
     });
 };
 
-const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto,  filtro ) => {
+const buscarInfoPorTextoPersonajes = (   coleccion, paginaActual, texto, orden, filtro) => {
   fetch(
-    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}&orderBy=name&nameStartsWith=${filtro.value}`
+    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
+    }&orderBy=${orden}&nameStartsWith=${filtro}`
   )
     .then((res) => {
       return res.json();
@@ -104,9 +103,8 @@ const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto,  filtro ) 
 const form = document.forms[0];
 
 form.onsubmit = (e) => {
-  e.preventDefault()
-}
-
+  e.preventDefault();
+};
 
 const tipo = document.querySelector("#tipo");
 const orden = document.querySelector("#orden");
@@ -114,70 +112,45 @@ const botonBuscar = document.querySelector(".boton-principal");
 
 botonBuscar.onclick = () => {
   validarSeleccion();
-}
+};
 
 const validarSeleccion = () => {
-  if (tipo.value === "comics") {
-    buscarInfo("comics", paginaActual, "title", orden.value);
-  }
-  
-  else if (tipo.value === "characters") {
-    buscarInfo("characters", paginaActual, "name", "name");
-  }
-  if (tipo.value === "characters" & orden.value === "-title") {
-    buscarInfo("characters", paginaActual, "name", "-name");
-  }
-
-  if(filtro.value != '') {
-    console.log(tipo.value)
-    console.log(orden.value)
-    console.log(filtro.value)
-    if(tipo.value === "comics") {
-      buscarInfoPorTextoComics(tipo.value, paginaActual, "title",  filtro.value);
+  if (filtro.value == "") {
+    if (tipo.value === "comics") {
+      buscarInfo("comics", paginaActual, "title", orden.value);
+    } else {
+      if ((tipo.value === "characters") & (orden.value === "title")) {
+        buscarInfo("characters", paginaActual, "name", "name");
+      }
+      if ((tipo.value === "characters") & (orden.value === "-title")) {
+        buscarInfo("characters", paginaActual, "name", "-name");
+      }
     }
-    
-    if (tipo.value === "characters") {
-    buscarInfoPorTextoPersonajes(tipo.value, paginaActual, "title",  filtro.value);  
-    }
-    
   }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if (tipo.value === "comics" & orden.value === "-title") {
-  //   buscarInfo("comics", paginaActual, "title", orden.value);
-  // }
-
-  // if (tipo.value === "comics" & orden.value === "-focDate") {
-  //   buscarInfo("comics", paginaActual, "title", "-focDate");
-  // }
-
-  // if (tipo.value === "comics" & orden.value === "mas-viejos") {
-  //   buscarInfo("comics", paginaActual, "title", "focDate");
-  // }
-
+  if (filtro.value != "") {
+    if (tipo.value === "comics") {
+      buscarInfoPorTextoComics(tipo.value, paginaActual, "title", orden.value, filtro.value);
+    }else {
+      if ((tipo.value === "characters") & (orden.value === "title")) {
+        buscarInfoPorTextoPersonajes("characters", paginaActual, "name", "name", filtro.value);
+      }
+      if ((tipo.value === "characters") & (orden.value === "-title")) {
+        buscarInfoPorTextoPersonajes("characters", paginaActual, "name", "-name", filtro.value);
+      }
+    }
+  }
+};
 
 ///paginacion
-  // botonProx.onclick = () => {
-  //   paginaActual++;
-  //   console.log("paginaActual", paginaActual)
-  //   buscarInfo("comics", paginaActual, "title");
-  // }
-  
-  // botonPrev.onclick = () => {
-  //   paginaActual--;
-  //   console.log("paginaActual", paginaActual)
-  //   buscarInfo("comics", paginaActual, "title");
-  // }
+// botonProx.onclick = () => {
+//   paginaActual++;
+//   console.log("paginaActual", paginaActual)
+//   buscarInfo("comics", paginaActual, "title");
+// }
+
+// botonPrev.onclick = () => {
+//   paginaActual--;
+//   console.log("paginaActual", paginaActual)
+//   buscarInfo("comics", paginaActual, "title");
+// }
