@@ -32,6 +32,9 @@ const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
       </article> 
     `;
       });
+
+
+
     });
 };
 
@@ -40,7 +43,7 @@ buscarInfo("comics", paginaActual, "title");
 const filtro = document.querySelector("#filtro_busqueda");
 console.log(filtro.value);
 
-const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden,  filtro) => {
+const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden, filtro) => {
   fetch(
     `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
     }&orderBy=${orden}&titleStartsWith=${filtro}`
@@ -69,7 +72,7 @@ const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden,  filtro
     });
 };
 
-const buscarInfoPorTextoPersonajes = (   coleccion, paginaActual, texto, orden, filtro) => {
+const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto, orden, filtro) => {
   fetch(
     `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
     }&orderBy=${orden}&nameStartsWith=${filtro}`
@@ -131,7 +134,7 @@ const validarSeleccion = () => {
   if (filtro.value != "") {
     if (tipo.value === "comics") {
       buscarInfoPorTextoComics(tipo.value, paginaActual, "title", orden.value, filtro.value);
-    }else {
+    } else {
       if ((tipo.value === "characters") & (orden.value === "title")) {
         buscarInfoPorTextoPersonajes("characters", paginaActual, "name", "name", filtro.value);
       }
