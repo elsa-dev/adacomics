@@ -30,10 +30,6 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    
-    
-
 }
 
 
@@ -51,11 +47,42 @@ main {
 
 }
 
-.contenedor-tarjetas {
+section {
     width: 90%;
-    height: 600px;
+    height: 100%;
+    
     border: 3px solid rgb(238, 99, 13);
+
+    display: flex;
+    flex-wrap: wrap;
+
+
+    article {
+        border: 3px solid rgb(30, 240, 93);
+       width: 200px; //cambiar resp
+       height:400px; //cambiar resp
+       margin: 0 10px 40px;
+
+       .contenedor__tarjetas-imagen {
+        border: 3px solid rgb(43, 29, 175);
+           width: 100%;
+           height: auto;
+           overflow: hidden;
+
+        .imagen{
+            border: 3px solid rgb(216, 62, 15);
+            width: 100%;
+            height: auto;
+        }
+       }
+       .contenedor__tarjetas-titulo {
+        border: 3px solid rgb(192, 18, 148);
+       }
+    }
 }
+
+
+
 
 .contenedor_botones{
     border: 3px solid rgb(159, 0, 26);

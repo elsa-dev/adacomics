@@ -9,12 +9,20 @@
 -fuentes 
 [google fonts](https://fonts.google.com/)
 
+-iconos
+
 [fontawesome](https://fontawesome.com/)
 
 Deployado
 
 [https://elsa-dev.github.io/adacomics/]
 
--Primero pasos Sass
+-conceptos que se practican.
+
+-Primeros pasos con sass. extend, anidados, componentes, estructura 7 1.
+
+-conexion con api de Marvel.
+
+-metodos map etc... objetos.
 
 ---

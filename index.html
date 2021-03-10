@@ -31,7 +31,8 @@
   <main>
     <div class="contenedor_busqueda">
       <h2 class="contenedor_busqueda-titulo">Búsqueda</h2>
-      <div class="contenedor_busqueda-cuerpo">
+
+      <form action="" class="contenedor_busqueda-cuerpo">
         <p>
           <input type="text" id="filtro_busqueda" name="filtro" placeholder="Ingresá tu búsqueda">
 
@@ -41,16 +42,16 @@
           <label for="tipo">TIPO
             <select name="" id="tipo">
               <option value="comics">COMICS</option>
-              <option value="personajes">PERSONAJES</option>
+              <option value="characters">PERSONAJES</option>
             </select>
           </label>
 
           <label for="orden">ORDEN
             <select name="" id="orden">
-              <option value="A-Z">A-Z</option>
-              <option value="Z-A">Z-A</option>
-              <option value="mas-nuevos">Más nuevos</option>
-              <option value="mas-viejos">Mas viejos</option>
+              <option value="title">A-Z</option>
+              <option value="-title">Z-A</option>
+              <option value="-focDate">Más nuevos</option>
+              <option value="focDate">Mas viejos</option>
             </select>
           </label>
 
@@ -61,8 +62,8 @@
         </button>
 
         </p>
-
-      </div>
+      </form>
+      
       <div class="contenedor_busqueda-resultados">
         <div class="contenedor_busqueda-titulo">
           Resultados
@@ -75,12 +76,11 @@
 
     </div>
 
-    <section class="contenedor__tarjetas">
-
-     
-
+      <!-- seccion para meter tarjetas desde js -->
+    <section>
+      
+      
     </section>
-
 
     
 
@@ -90,12 +90,12 @@
         <i class="fas fa-angle-double-left"></i>
       </button>
 
-      <button class="boton-secundario">
+      <button class="boton-secundario" id="prev">
         <i class="fas fa-angle-left"></i>
       </button>
 
       <!-- //der -->
-      <button class="boton-secundario">
+      <button class="boton-secundario" id="prox">
         <i class="fas fa-angle-right"></i>
       </button>
 
