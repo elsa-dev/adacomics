@@ -11,80 +11,80 @@ main {
 
 .contenedor_busqueda {
     font-family: $font-cuerpo ;
-    border: 4px solid rgb(137, 17, 137);
+    // border: 4px solid rgb(137, 17, 137);
     width: 90%;
 }
 
-.contenedor_busqueda-titulo{
-    border: 3px solid blue;
-}
+// .contenedor_busqueda-titulo{
+//     border: 3px solid blue;
+// }
 
-.contenedor_busqueda {
-    border: 3px solid rgb(240, 232, 13);
+// .contenedor_busqueda {
+//     border: 3px solid rgb(240, 232, 13);
    
 
-}
+// }
 
 .contenedor_busqueda-cuerpo {
-    border: 3px solid rgb(48, 150, 89);
+    // border: 3px solid rgb(48, 150, 89);
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 
-#filtro_busqueda{
-    border: 3px solid rgb(116, 111, 204);
+// #filtro_busqueda{
+//     border: 3px solid rgb(116, 111, 204);
 
-}
-.selects{
-    border: 3px solid rgb(13, 20, 17);
+// }
+// .selects{
+//     border: 3px solid rgb(13, 20, 17);
 
 
-}
-.boton-principal{
-    border: 3px solid rgb(102, 35, 156);
+// }
+// .boton-principal{
+//     border: 3px solid rgb(102, 35, 156);
 
-}
+// }
 
 section {
     width: 90%;
     height: 100%;
     
-    border: 3px solid rgb(238, 99, 13);
+    // border: 3px solid rgb(238, 99, 13);
 
     display: flex;
     flex-wrap: wrap;
 
 
     article {
-        border: 3px solid rgb(30, 240, 93);
+        // border: 3px solid rgb(30, 240, 93);
        width: 200px; //cambiar resp
        height:400px; //cambiar resp
        margin: 0 10px 40px;
 
        .contenedor__tarjetas-imagen {
-        border: 3px solid rgb(43, 29, 175);
+        // border: 3px solid rgb(43, 29, 175);
            width: 100%;
            height: auto;
            overflow: hidden;
 
         .imagen{
-            border: 3px solid rgb(216, 62, 15);
+            // border: 3px solid rgb(216, 62, 15);
             width: 100%;
             height: auto;
         }
        }
-       .contenedor__tarjetas-titulo {
-        border: 3px solid rgb(192, 18, 148);
-       }
+    //    .contenedor__tarjetas-titulo {
+    //     border: 3px solid rgb(192, 18, 148);
+    //    }
     }
 }
 
 
 
 
-.contenedor_botones{
-    border: 3px solid rgb(159, 0, 26);
-}
+// .contenedor_botones{
+//     border: 3px solid rgb(159, 0, 26);
+// }
 

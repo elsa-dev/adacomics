@@ -1,16 +1,13 @@
 const botonProx = document.querySelector("#prox");
 const botonPrev = document.querySelector("#prev");
-const botonPrimer = document.querySelector("#primer");
-const botonUltima = document.querySelector("#ultima");
 
 const urlBase = "http://gateway.marvel.com/v1/public/";
 const apiKey = "a5c341737de7aeb8ed26d028706b8313";
 let paginaActual = 0;
 let comicsPorPagina = 20;
-let total = 0;
 
 const resultadosTitulo = document.querySelector("#resultados");
-
+console.log(resultadosTitulo);
 const cantidadDeResultados = document.querySelector("#cantidad-encontrada");
 
 const seccion = document.querySelector("section");
@@ -194,8 +191,6 @@ const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
     .then((info) => {
       // console.log(info);
       seccion.innerHTML = " ";
-
-      total = info.data.total
       info.data.results.map((comic) => {
         cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`;
         seccion.innerHTML += `
@@ -398,74 +393,14 @@ const validarSeleccion = () => {
 };
 
 //paginacion
-botonProx.onclick = () => {
-  paginaActual++;
-  console.log("paginaActual", paginaActual, tipo.value)
-  // buscarInfo(tipo.value, paginaActual, "title");
-  if (tipo.value === "comics") {
-    buscarInfo("comics", paginaActual, "title", orden.value);
-  } else {
-    if ((tipo.value === "characters") & (orden.value === "title")) {
-      buscarInfo("characters", paginaActual, "name", "name");
-    }
-    if ((tipo.value === "characters") & (orden.value === "-title")) {
-      buscarInfo("characters", paginaActual, "name", "-name");
-    }
-  }
-}
+// botonProx.onclick = () => {
+//   paginaActual++;
+//   console.log("paginaActual", paginaActual)
+//   buscarInfo(tipo.value, paginaActual, "title");
+// }
 
-botonPrev.onclick = () => {
-  paginaActual--;
-  console.log("paginaActual", paginaActual, tipo.value)
-  // buscarInfo(tipo.value, paginaActual, "title");
-  if (tipo.value === "comics") {
-    buscarInfo("comics", paginaActual, "title", orden.value);
-  } else {
-    if ((tipo.value === "characters") & (orden.value === "title")) {
-      buscarInfo("characters", paginaActual, "name", "name");
-    }
-    if ((tipo.value === "characters") & (orden.value === "-title")) {
-      buscarInfo("characters", paginaActual, "name", "-name");
-    }
-  }
-}
-
-botonPrimer.onclick = () => {
-  paginaActual = 0
-  console.log("paginaActual", paginaActual, tipo.value)
-  // buscarInfo(tipo.value, paginaActual, "title");
-  if (tipo.value === "comics") {
-    buscarInfo("comics", paginaActual, "title", orden.value);
-  } else {
-    if ((tipo.value === "characters") & (orden.value === "title")) {
-      buscarInfo("characters", paginaActual, "name", "name");
-    }
-    if ((tipo.value === "characters") & (orden.value === "-title")) {
-      buscarInfo("characters", paginaActual, "name", "-name");
-    }
-  }
-}
-
-botonUltima.onclick = () => {
-  const resto = total % comicsPorPagina
- if (resto > 0) {              
-   paginaActual = (total - (total % comicsPorPagina)) / comicsPorPagina
- }  
- else { 
-   paginaActual = ((total - (total % comicsPorPagina)) / resultadosPorPagina) - resultadosPorPagina
- }
- 
-
-if (tipo.value === "comics") {
-  buscarInfo("comics", paginaActual, "title", orden.value);
-} else {
-  if ((tipo.value === "characters") & (orden.value === "title")) {
-    buscarInfo("characters", paginaActual, "name", "name");
-  }
-  if ((tipo.value === "characters") & (orden.value === "-title")) {
-    buscarInfo("characters", paginaActual, "name", "-name");
-  }
-}
- 
-}
-
+// botonPrev.onclick = () => {
+//   paginaActual--;
+//   console.log("paginaActual", paginaActual)
+//   buscarInfo(tipo.value, paginaActual, "title");
+// }
