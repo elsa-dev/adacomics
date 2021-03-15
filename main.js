@@ -6,16 +6,15 @@ const apiKey = "a5c341737de7aeb8ed26d028706b8313";
 let paginaActual = 0;
 let comicsPorPagina = 20;
 
-const resultadosTitulo = document.querySelector("#resultados")
-console.log(resultadosTitulo)
-const cantidadDeResultados = document.querySelector("#cantidad-encontrada")
+const resultadosTitulo = document.querySelector("#resultados");
+console.log(resultadosTitulo);
+const cantidadDeResultados = document.querySelector("#cantidad-encontrada");
 
 const seccion = document.querySelector("section");
 
 const tipo = document.querySelector("#tipo");
 const orden = document.querySelector("#orden");
 const botonBuscar = document.querySelector(".boton-principal");
-
 
 //buscando personajes del comic elegido
 buscarPersonajesDelComic = (comic) => {
@@ -27,19 +26,18 @@ buscarPersonajesDelComic = (comic) => {
       console.log("personaje de un comic", dataComicsPersonajes);
 
       infoPersonajes = dataComicsPersonajes.data.results;
-      
 
       seccion.innerHTML += `
       <div>
       <h2> Personajes </h2>
       <h3>${dataComicsPersonajes.data.total} RESULTADOS</h3> 
       </div>
-      `; 
+      `;
 
-      if(dataComicsPersonajes.data.total === 0) {
+      if (dataComicsPersonajes.data.total === 0) {
         seccion.innerHTML += `
         <p> No se han encontrado resultados </p>
-        `
+        `;
       }
 
       infoPersonajes.map((comic) => {
@@ -56,31 +54,26 @@ buscarPersonajesDelComic = (comic) => {
         </article> 
       </div>
       `;
-      
-      })
-      
-     
+      });
     });
-}
-
-  
+};
 
 //buscando descripcion del comic elegido
 const buscarDescripcionDelComic = (comic) => {
   fetch(
-    `http://gateway.marvel.com/v1/public/comics/${comic.dataset.id}?apikey=a5c341737de7aeb8ed26d028706b8313`  )
+    `http://gateway.marvel.com/v1/public/comics/${comic.dataset.id}?apikey=a5c341737de7aeb8ed26d028706b8313`
+  )
     .then((res) => res.json())
     .then((dataComic) => {
-      
       descripcionComic = dataComic.data.results[0];
-      fechaPublicado = descripcionComic.dates[0].date
-      soloFecha = fechaPublicado.slice(0, 10)
-      
-      resultadosTitulo.innerHTML = " "
-      cantidadDeResultados.innerHTML = " "
+      fechaPublicado = descripcionComic.dates[0].date;
+      soloFecha = fechaPublicado.slice(0, 10);
+
+      resultadosTitulo.innerHTML = " ";
+      cantidadDeResultados.innerHTML = " ";
 
       seccion.innerHTML = " ";
-     
+
       seccion.innerHTML = `
     <div class="contenedor_descripcion">
 <div class="contenedor_descripcion-imagen">
@@ -100,17 +93,17 @@ const buscarDescripcionDelComic = (comic) => {
 </div>
 </div> `;
 
-const descripcion = document.querySelector('#descripcion')
+      const descripcion = document.querySelector("#descripcion");
 
-if(descripcionComic.description === null) {
-  descripcion.innerHTML = `
+      if (descripcionComic.description === null) {
+        descripcion.innerHTML = `
   <p> Informacion no disponible </p>
-  `
-}
+  `;
+      }
       //fech para personajes lo vuelvo funcion
-      buscarPersonajesDelComic(comic)
-      });
-}
+      buscarPersonajesDelComic(comic);
+    });
+};
 
 ////////////////////////////////////////////////////
 //buscando comics del personaje elegido
@@ -130,15 +123,14 @@ buscarComicsDelPersonaje = (comic) => {
       <h3>${dataComicsPersonajes.data.total} Resultados</h3>
       </div>
       `;
-      if(dataComicsPersonajes.data.total === 0) {
+      if (dataComicsPersonajes.data.total === 0) {
         seccion.innerHTML += `
         <p> No se han encontrado resultados </p>
-        `
+        `;
       }
 
       infoPersonaje.map((personaje) => {
-
-      seccion.innerHTML += `
+        seccion.innerHTML += `
             <div class="contenedor_info-extra">
             
             <article class = "comic" data-id="${infoPersonaje.id}"> 
@@ -151,11 +143,9 @@ buscarComicsDelPersonaje = (comic) => {
               </article> 
             </div>
       `;
-
-      })
-      
+      });
     });
-}
+};
 
 //buscando descripcion del personaje elegido
 const buscarDescripcionDelPersonaje = (comic) => {
@@ -164,15 +154,14 @@ const buscarDescripcionDelPersonaje = (comic) => {
   )
     .then((res) => res.json())
     .then((dataPersonaje) => {
-      console.log('un solo personaje', dataPersonaje)
+      console.log("un solo personaje", dataPersonaje);
       descripcionPersonaje = dataPersonaje.data.results[0];
 
-      
-      resultadosTitulo.innerHTML = " "
-      cantidadDeResultados.innerHTML = " "
+      resultadosTitulo.innerHTML = " ";
+      cantidadDeResultados.innerHTML = " ";
 
       seccion.innerHTML = " ";
-      
+
       seccion.innerHTML = `
     <div class="contenedor_descripcion">
 <div class="contenedor_descripcion-imagen">
@@ -184,15 +173,16 @@ const buscarDescripcionDelPersonaje = (comic) => {
 </div>
 </div> `;
       //fech para personajes lo vuelvo funcion
-      buscarComicsDelPersonaje(comic)
-      });
-}
+      buscarComicsDelPersonaje(comic);
+    });
+};
 ////////////////////////////////////
 
 ////busqueda inicial de los comics///
 const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
   fetch(
-    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
+    `${urlBase + coleccion}?apikey=${apiKey}&offset=${
+      paginaActual * comicsPorPagina
     }&orderBy=${orden}`
   )
     .then((res) => {
@@ -202,8 +192,7 @@ const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
       // console.log(info);
       seccion.innerHTML = " ";
       info.data.results.map((comic) => {
-
-        cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`
+        cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`;
         seccion.innerHTML += `
     <article class = "comic" data-id="${comic.id}"> 
          <div class="contenedor__tarjetas-imagen">
@@ -223,28 +212,33 @@ const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
         comic.onclick = () => {
           // console.log("fui a buscar la descripcion del comic")
           // console.log("hiciste clic a un comic fui a buscar la descripcion del comic", comic, comic.dataset.id);
-          
-          //elijo que descripcion traer  
-          if(tipo.value === "comics"){
-            buscarDescripcionDelComic(comic) 
+
+          //elijo que descripcion traer
+          if (tipo.value === "comics") {
+            buscarDescripcionDelComic(comic);
           } else {
-            buscarDescripcionDelPersonaje(comic)
+            buscarDescripcionDelPersonaje(comic);
           }
-          
-                    
         };
       });
     });
-};                
+};
 
-buscarInfo("comics", paginaActual, "title");  //ejecucion parametros inicial
+buscarInfo("comics", paginaActual, "title"); //ejecucion parametros inicial
 
 const filtro = document.querySelector("#filtro_busqueda");
 // console.log(filtro.value);
 
-const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden, filtro) => {
+const buscarInfoPorTextoComics = (
+  coleccion,
+  paginaActual,
+  texto,
+  orden,
+  filtro
+) => {
   fetch(
-    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
+    `${urlBase + coleccion}?apikey=${apiKey}&offset=${
+      paginaActual * comicsPorPagina
     }&orderBy=${orden}&titleStartsWith=${filtro}`
   )
     .then((res) => {
@@ -255,7 +249,7 @@ const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden, filtro)
 
       const seccion = document.querySelector("section");
 
-      cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`
+      cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`;
       seccion.innerHTML = " ";
       info.data.results.map((comic) => {
         seccion.innerHTML += `
@@ -269,24 +263,33 @@ const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden, filtro)
       </article> 
     `;
       });
-////////////////////////////////////////////////////////////////
-const comicsHTML = document.querySelectorAll(".comic");
+      ////////////////////////////////////////////////////////////////
+      const comicsHTML = document.querySelectorAll(".comic");
 
-comicsHTML.forEach((comic) => {
-  comic.onclick = () => {
-    console.log("fui a buscar la descripcion del comic")
-          console.log("hiciste clic a un comic fui a buscar la descripcion del comic", comic, comic.dataset.id);
-    buscarDescripcionDelComic(comic)          
-  };
-});
-
-
+      comicsHTML.forEach((comic) => {
+        comic.onclick = () => {
+          console.log("fui a buscar la descripcion del comic");
+          console.log(
+            "hiciste clic a un comic fui a buscar la descripcion del comic",
+            comic,
+            comic.dataset.id
+          );
+          buscarDescripcionDelComic(comic);
+        };
+      });
     });
 };
 
-const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto, orden, filtro) => {
+const buscarInfoPorTextoPersonajes = (
+  coleccion,
+  paginaActual,
+  texto,
+  orden,
+  filtro
+) => {
   fetch(
-    `${urlBase + coleccion}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina
+    `${urlBase + coleccion}?apikey=${apiKey}&offset=${
+      paginaActual * comicsPorPagina
     }&orderBy=${orden}&nameStartsWith=${filtro}`
   )
     .then((res) => {
@@ -297,7 +300,7 @@ const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto, orden, fil
 
       const seccion = document.querySelector("section");
 
-      cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`
+      cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`;
       seccion.innerHTML = " ";
       info.data.results.map((comic) => {
         seccion.innerHTML += `
@@ -311,22 +314,23 @@ const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto, orden, fil
       </article> 
     `;
       });
-//////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////
 
-const comicsHTML = document.querySelectorAll(".comic");
-console.log(comicsHTML)
-comicsHTML.forEach((comic) => {
-  comic.onclick = () => {
-    console.log('hice click en un comic')
-    console.log("fui a buscar la descripcion del comic")
-          console.log("hiciste clic a un comic fui a buscar la descripcion del comic", comic, comic.dataset.id);
-    
-    buscarDescripcionDelPersonaje(comic)
-    
-              
-  };
-});
+      const comicsHTML = document.querySelectorAll(".comic");
+      console.log(comicsHTML);
+      comicsHTML.forEach((comic) => {
+        comic.onclick = () => {
+          console.log("hice click en un comic");
+          console.log("fui a buscar la descripcion del comic");
+          console.log(
+            "hiciste clic a un comic fui a buscar la descripcion del comic",
+            comic,
+            comic.dataset.id
+          );
 
+          buscarDescripcionDelPersonaje(comic);
+        };
+      });
     });
 };
 
@@ -358,13 +362,31 @@ const validarSeleccion = () => {
 
   if (filtro.value != "") {
     if (tipo.value === "comics") {
-      buscarInfoPorTextoComics( tipo.value, paginaActual, "title", orden.value, filtro.value);
+      buscarInfoPorTextoComics(
+        tipo.value,
+        paginaActual,
+        "title",
+        orden.value,
+        filtro.value
+      );
     } else {
       if ((tipo.value === "characters") & (orden.value === "title")) {
-        buscarInfoPorTextoPersonajes( "characters", paginaActual, "name", "name", filtro.value);
+        buscarInfoPorTextoPersonajes(
+          "characters",
+          paginaActual,
+          "name",
+          "name",
+          filtro.value
+        );
       }
       if ((tipo.value === "characters") & (orden.value === "-title")) {
-        buscarInfoPorTextoPersonajes( "characters", paginaActual, "name", "-name", filtro.value);
+        buscarInfoPorTextoPersonajes(
+          "characters",
+          paginaActual,
+          "name",
+          "-name",
+          filtro.value
+        );
       }
     }
   }
