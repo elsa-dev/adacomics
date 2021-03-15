@@ -6,6 +6,8 @@ const apiKey = "a5c341737de7aeb8ed26d028706b8313";
 let paginaActual = 0;
 let comicsPorPagina = 20;
 
+const resultadosTitulo = document.querySelector("#resultados")
+console.log(resultadosTitulo)
 const cantidadDeResultados = document.querySelector("#cantidad-encontrada")
 
 const seccion = document.querySelector("section");
@@ -24,24 +26,44 @@ buscarPersonajesDelComic = (comic) => {
     .then((dataComicsPersonajes) => {
       console.log("personaje de un comic", dataComicsPersonajes);
 
-      infoPersonaje = dataComicsPersonajes.data.results[0];
+      infoPersonajes = dataComicsPersonajes.data.results;
+      
 
       seccion.innerHTML += `
-      <div class="contenedor_info-extra">
+      <div>
       <h2> Personajes </h2>
-      <h3>${dataComicsPersonajes.data.total}</h3>
-      <article class = "personaje" data-id="${infoPersonaje.id}"> 
+      <h3>${dataComicsPersonajes.data.total} RESULTADOS</h3> 
+      </div>
+      `; 
+
+      if(dataComicsPersonajes.data.total === 0) {
+        seccion.innerHTML += `
+        <p> No se han encontrado resultados </p>
+        `
+      }
+
+      infoPersonajes.map((comic) => {
+        seccion.innerHTML += `
+      <div class="contenedor_info-extra">
+      
+      <article class = "personaje" data-id="${infoPersonajes.id}"> 
        <div class="contenedor__tarjetas-imagen">
-       <img  class="imagen" src="${infoPersonaje.thumbnail.path}/portrait_uncanny.${infoPersonaje.thumbnail.extension}" alt="">
+       <img  class="imagen" src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="">
        </div> 
        <h3 class="contenedor__tarjetas-titulo">
-       ${infoPersonaje.name}
+       ${comic.name}
        </h3> 
         </article> 
       </div>
-`;
+      `;
+      
+      })
+      
+     
     });
 }
+
+  
 
 //buscando descripcion del comic elegido
 const buscarDescripcionDelComic = (comic) => {
@@ -49,12 +71,16 @@ const buscarDescripcionDelComic = (comic) => {
     `http://gateway.marvel.com/v1/public/comics/${comic.dataset.id}?apikey=a5c341737de7aeb8ed26d028706b8313`  )
     .then((res) => res.json())
     .then((dataComic) => {
-      // console.log('un solo comic', dataComic)
+      
       descripcionComic = dataComic.data.results[0];
+      fechaPublicado = descripcionComic.dates[0].date
+      soloFecha = fechaPublicado.slice(0, 10)
+      
+      resultadosTitulo.innerHTML = " "
+      cantidadDeResultados.innerHTML = " "
 
-      //borro contenido seccion
       seccion.innerHTML = " ";
-      //meto descripcion comic
+     
       seccion.innerHTML = `
     <div class="contenedor_descripcion">
 <div class="contenedor_descripcion-imagen">
@@ -63,13 +89,24 @@ const buscarDescripcionDelComic = (comic) => {
 <div class="contenedor_descripcion-texto">
   <h2>${descripcionComic.title}</h2>
   <h3>Publicado:</h3>
-  <p>${descripcionComic.dates[0].date}</p>
+
+
+
+  <p>${soloFecha}</p>
   <h3>Guionistas:</h3>
   <p>${descripcionComic.creators.items[0].name}</p>
   <h3>Descripcion:</h3>
-  <p>${descripcionComic.description}</p>
+  <p id="descripcion">${descripcionComic.description}</p>
 </div>
 </div> `;
+
+const descripcion = document.querySelector('#descripcion')
+
+if(descripcionComic.description === null) {
+  descripcion.innerHTML = `
+  <p> Informacion no disponible </p>
+  `
+}
       //fech para personajes lo vuelvo funcion
       buscarPersonajesDelComic(comic)
       });
@@ -85,22 +122,38 @@ buscarComicsDelPersonaje = (comic) => {
     .then((dataComicsPersonajes) => {
       console.log("personaje de un comic", dataComicsPersonajes);
 
-      infoPersonaje = dataComicsPersonajes.data.results[0];
+      infoPersonaje = dataComicsPersonajes.data.results;
 
       seccion.innerHTML += `
-      <div class="contenedor_info-extra">
+      <div>
       <h2> Comics </h2>
-      <h3>${dataComicsPersonajes.data.total}</h3>
-      <article class = "comic" data-id="${infoPersonaje.id}"> 
-       <div class="contenedor__tarjetas-imagen">
-       <img  class="imagen" src="${infoPersonaje.thumbnail.path}/portrait_uncanny.${infoPersonaje.thumbnail.extension}" alt="">
-       </div> 
-       <h3 class="contenedor__tarjetas-titulo">
-       ${infoPersonaje.title}
-       </h3> 
-        </article> 
+      <h3>${dataComicsPersonajes.data.total} Resultados</h3>
       </div>
-`;
+      `;
+      if(dataComicsPersonajes.data.total === 0) {
+        seccion.innerHTML += `
+        <p> No se han encontrado resultados </p>
+        `
+      }
+
+      infoPersonaje.map((personaje) => {
+
+      seccion.innerHTML += `
+            <div class="contenedor_info-extra">
+            
+            <article class = "comic" data-id="${infoPersonaje.id}"> 
+            <div class="contenedor__tarjetas-imagen">
+            <img  class="imagen" src="${personaje.thumbnail.path}/portrait_uncanny.${personaje.thumbnail.extension}" alt="">
+            </div> 
+            <h3 class="contenedor__tarjetas-titulo">
+            ${personaje.title}
+            </h3> 
+              </article> 
+            </div>
+      `;
+
+      })
+      
     });
 }
 
@@ -114,16 +167,19 @@ const buscarDescripcionDelPersonaje = (comic) => {
       console.log('un solo personaje', dataPersonaje)
       descripcionPersonaje = dataPersonaje.data.results[0];
 
-      //borro contenido seccion
+      
+      resultadosTitulo.innerHTML = " "
+      cantidadDeResultados.innerHTML = " "
+
       seccion.innerHTML = " ";
-      //meto descripcion personaje
+      
       seccion.innerHTML = `
     <div class="contenedor_descripcion">
 <div class="contenedor_descripcion-imagen">
   <img class="imagen-descripcion" src="${descripcionPersonaje.thumbnail.path}/portrait_uncanny.${descripcionPersonaje.thumbnail.extension}" alt="">
 </div>
 <div class="contenedor_descripcion-texto">
-  <h2>${descripcionPersonaje.name}</h2>//nombre
+  <h2>${descripcionPersonaje.name}</h2>
   <p>${descripcionPersonaje.description}</p>
 </div>
 </div> `;
@@ -147,7 +203,7 @@ const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
       seccion.innerHTML = " ";
       info.data.results.map((comic) => {
 
-        cantidadDeResultados.innerHTML = `<span>${info.data.total}</span>`
+        cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`
         seccion.innerHTML += `
     <article class = "comic" data-id="${comic.id}"> 
          <div class="contenedor__tarjetas-imagen">
@@ -160,15 +216,13 @@ const buscarInfo = (coleccion, paginaActual, texto, orden = "title") => {
     `;
       });
 
-      
-      
       const comicsHTML = document.querySelectorAll(".comic");
       // console.log(comicsHTML)
 
       comicsHTML.forEach((comic) => {
         comic.onclick = () => {
-          console.log("fui a buscar la descripcion del comic")
-          console.log("hiciste clic a un comic fui a buscar la descripcion del comic", comic, comic.dataset.id);
+          // console.log("fui a buscar la descripcion del comic")
+          // console.log("hiciste clic a un comic fui a buscar la descripcion del comic", comic, comic.dataset.id);
           
           //elijo que descripcion traer  
           if(tipo.value === "comics"){
@@ -201,11 +255,11 @@ const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden, filtro)
 
       const seccion = document.querySelector("section");
 
-      cantidadDeResultados.innerHTML = `<span>${info.data.total}</span>`
+      cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`
       seccion.innerHTML = " ";
       info.data.results.map((comic) => {
         seccion.innerHTML += `
-    <article>
+    <article class = "comic" data-id="${comic.id}">
          <div class="contenedor__tarjetas-imagen">
             <img  class="imagen" src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="">
           </div> 
@@ -215,6 +269,18 @@ const buscarInfoPorTextoComics = (coleccion, paginaActual, texto, orden, filtro)
       </article> 
     `;
       });
+////////////////////////////////////////////////////////////////
+const comicsHTML = document.querySelectorAll(".comic");
+
+comicsHTML.forEach((comic) => {
+  comic.onclick = () => {
+    console.log("fui a buscar la descripcion del comic")
+          console.log("hiciste clic a un comic fui a buscar la descripcion del comic", comic, comic.dataset.id);
+    buscarDescripcionDelComic(comic)          
+  };
+});
+
+
     });
 };
 
@@ -231,11 +297,11 @@ const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto, orden, fil
 
       const seccion = document.querySelector("section");
 
-      cantidadDeResultados.innerHTML = `<span>${info.data.total}</span>`
+      cantidadDeResultados.innerHTML = `<span>${info.data.total} RESULTADOS</span>`
       seccion.innerHTML = " ";
       info.data.results.map((comic) => {
         seccion.innerHTML += `
-    <article>
+    <article class = "comic" data-id="${comic.id}">
          <div class="contenedor__tarjetas-imagen">
             <img  class="imagen" src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="">
           </div> 
@@ -245,6 +311,22 @@ const buscarInfoPorTextoPersonajes = (coleccion, paginaActual, texto, orden, fil
       </article> 
     `;
       });
+//////////////////////////////////////////////////////////////////
+
+const comicsHTML = document.querySelectorAll(".comic");
+console.log(comicsHTML)
+comicsHTML.forEach((comic) => {
+  comic.onclick = () => {
+    console.log('hice click en un comic')
+    console.log("fui a buscar la descripcion del comic")
+          console.log("hiciste clic a un comic fui a buscar la descripcion del comic", comic, comic.dataset.id);
+    
+    buscarDescripcionDelPersonaje(comic)
+    
+              
+  };
+});
+
     });
 };
 
@@ -255,12 +337,6 @@ const form = document.forms[0];
 form.onsubmit = (e) => {
   e.preventDefault();
 };
-
-
-//mando arriba
-// const tipo = document.querySelector("#tipo");
-// const orden = document.querySelector("#orden");
-// const botonBuscar = document.querySelector(".boton-principal");
 
 botonBuscar.onclick = () => {
   validarSeleccion();
@@ -294,15 +370,15 @@ const validarSeleccion = () => {
   }
 };
 
-///paginacion
+//paginacion
 // botonProx.onclick = () => {
 //   paginaActual++;
 //   console.log("paginaActual", paginaActual)
-//   buscarInfo("comics", paginaActual, "title");
+//   buscarInfo(tipo.value, paginaActual, "title");
 // }
 
 // botonPrev.onclick = () => {
 //   paginaActual--;
 //   console.log("paginaActual", paginaActual)
-//   buscarInfo("comics", paginaActual, "title");
+//   buscarInfo(tipo.value, paginaActual, "title");
 // }
