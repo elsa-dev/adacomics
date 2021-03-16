@@ -453,7 +453,7 @@ botonUltima.onclick = () => {
    paginaActual = (total - (total % comicsPorPagina)) / comicsPorPagina
  }  
  else { 
-   paginaActual = ((total - (total % comicsPorPagina)) / resultadosPorPagina) - resultadosPorPagina
+   paginaActual = ((total - (total % comicsPorPagina)) / comicsPorPagina) - comicsPorPagina
  }
 
 
