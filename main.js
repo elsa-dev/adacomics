@@ -77,6 +77,7 @@ const buscarDescripcionDelComic = (comic) => {
 
       seccion.innerHTML = " ";
 
+      // el alt de una imagen solo va vacio cuando la img es decorativa
       seccion.innerHTML = `
     <div class="contenedor_descripcion">
 <div class="contenedor_descripcion-imagen">
@@ -116,6 +117,7 @@ buscarComicsDelPersonaje = (comic) => {
   )
     .then((res) => res.json())
     .then((dataComicsPersonajes) => {
+      // no dejes console log en una entrega
       console.log("personaje de un comic", dataComicsPersonajes);
 
       infoPersonaje = dataComicsPersonajes.data.results;
@@ -133,6 +135,7 @@ buscarComicsDelPersonaje = (comic) => {
       }
 
       infoPersonaje.map((personaje) => {
+        // alt en la img!
         seccion.innerHTML += `
             <div class="contenedor_info-extra">
             
@@ -157,7 +160,7 @@ const buscarDescripcionDelPersonaje = (comic) => {
   )
     .then((res) => res.json())
     .then((dataPersonaje) => {
-      console.log("un solo personaje", dataPersonaje);
+      console.log("un solo personaje", dataPersonaje); // :( 
       descripcionPersonaje = dataPersonaje.data.results[0];
 
       resultadosTitulo.innerHTML = " ";
@@ -235,6 +238,10 @@ buscarInfo("comics", paginaActual, "title"); //ejecucion parametros inicial
 const filtro = document.querySelector("#filtro_busqueda");
 // console.log(filtro.value);
 
+// muy bien esta funcion, pero nota que se parece bastante a la de personajes. 
+// podriamos mejorarlo de dos maneras
+// o haciendo una funcion para ambos, mas abstracta
+// o haciendo varias funciones auxiliares pequeñas para que se usen en ambos
 const buscarInfoPorTextoComics = (
   coleccion,
   paginaActual,
@@ -403,6 +410,9 @@ botonProx.onclick = () => {
   paginaActual++;
   console.log("paginaActual", paginaActual, tipo.value)
   // buscarInfo(tipo.value, paginaActual, "title");
+
+  // esta logica se repite en todos tus botones: gran candidata a ser parte de 
+  // una funcion reutilizable
   if (tipo.value === "comics") {
     buscarInfo("comics", paginaActual, "title", orden.value);
   } else {
